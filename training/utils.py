@@ -155,7 +155,7 @@ def parse_assistant_output(text: str, language: str = "python") -> ParsedOutput:
         text, re.DOTALL | re.IGNORECASE
     )
     code_match = re.search(
-        r"##\s*Fixed Code\s*\n```(?:\w+)?\n(.*?)```",
+        r"##\s*Fixed Code.*?\n```(?:\w+)?\n(.*?)```",
         text, re.DOTALL | re.IGNORECASE
     )
 
