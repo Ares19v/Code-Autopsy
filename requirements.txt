@@ -1,0 +1,58 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Code Autopsy — requirements.txt
+# Python 3.11 | RTX 5060 | CUDA 12.x
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── Core PyTorch (install separately with correct CUDA version if needed) ─────
+# pip install torch>=2.4.0 --index-url https://download.pytorch.org/whl/cu124
+torch>=2.4.0
+
+# ── HuggingFace ecosystem ─────────────────────────────────────────────────────
+transformers>=4.46.0
+tokenizers>=0.20.0
+datasets>=3.0.0
+accelerate>=0.34.0
+huggingface-hub>=0.25.0
+sentencepiece>=0.2.0
+
+# ── Fine-tuning ───────────────────────────────────────────────────────────────
+peft>=0.13.0
+trl>=0.12.0
+bitsandbytes>=0.44.0          # NF4 4-bit quantization; needs >=0.44 for sm_120 (RTX 5060)
+
+# ── Evaluation ────────────────────────────────────────────────────────────────
+evaluate>=0.4.0
+codebleu>=0.6.0
+sacrebleu>=2.4.0
+rouge-score>=0.1.2
+nltk>=3.9.0
+
+# ── Experiment tracking ───────────────────────────────────────────────────────
+wandb>=0.18.0
+
+# ── Serving ───────────────────────────────────────────────────────────────────
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.0.0
+
+# ── Demo UI ───────────────────────────────────────────────────────────────────
+gradio>=5.0.0
+requests>=2.31.0
+
+# ── LLM-as-judge (Gemini) ─────────────────────────────────────────────────────
+google-generativeai>=0.8.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+numpy>=1.26.0
+tqdm>=4.66.0
+rich>=13.7.0
+einops>=0.8.0
+scipy>=1.13.0
+matplotlib>=3.9.0
+seaborn>=0.13.0
+
+# ── Dev / CI ─────────────────────────────────────────────────────────────────
+ruff>=0.4.0
+pytest>=8.0.0

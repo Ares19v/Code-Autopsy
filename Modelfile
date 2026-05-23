@@ -1,0 +1,41 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Code Autopsy — Ollama Modelfile
+# ══════════════════════════════════════════════════════════════════════════════
+# For local inference via Ollama after converting to GGUF.
+#
+# Steps:
+#   1. Merge adapter:      python publish.py --skip-merge=false
+#   2. Convert to GGUF:    bash convert_to_gguf.sh
+#   3. Create Ollama model: ollama create code-autopsy -f Modelfile
+#   4. Run:                ollama run code-autopsy
+# ══════════════════════════════════════════════════════════════════════════════
+
+FROM ./merged_model/code-autopsy-7b.Q4_K_M.gguf
+
+SYSTEM """You are a code review expert. Analyze the provided code, identify any bugs or issues, explain the root cause, and provide a corrected version.
+
+Always structure your response exactly as:
+
+## Bug Identified
+<description of the bug>
+
+## Root Cause
+<explanation of why this bug occurs>
+
+## Fixed Code
+```<language>
+<corrected code>
+```"""
+
+# Inference parameters
+PARAMETER temperature    0.1
+PARAMETER top_p          0.9
+PARAMETER top_k          40
+PARAMETER num_ctx        2048
+PARAMETER num_predict    600
+PARAMETER repeat_penalty 1.1
+
+# Stop tokens for Qwen2.5
+PARAMETER stop "<|endoftext|>"
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|im_start|>"

@@ -1,0 +1,79 @@
+version: "3.9"
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Code Autopsy — docker-compose.yml
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# Services:
+#   api   — FastAPI inference server (port 8000, needs NVIDIA GPU)
+#   demo  — Gradio UI          (port 7860, CPU-only, calls api internally)
+#
+# Prerequisites:
+#   - NVIDIA Container Toolkit installed (nvidia-docker2)
+#   - .env file present (copy from .env.example)
+#   - ./adapter directory present with LoRA weights
+#
+# Usage:
+#   docker compose up --build
+#   docker compose up api      # API only
+#   open http://localhost:7860
+# ══════════════════════════════════════════════════════════════════════════════
+
+services:
+
+  # ── Inference API ────────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: serve/Dockerfile
+    image: code-autopsy-serve:latest
+    container_name: code-autopsy-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      BASE_MODEL: "Qwen/Qwen2.5-Coder-7B-Instruct"
+      ADAPTER_PATH: "/app/adapter"
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./adapter:/app/adapter:ro
+      - hf_cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+
+  # ── Gradio Demo UI ────────────────────────────────────────────────────────────
+  demo:
+    build:
+      context: .
+      dockerfile: demo/Dockerfile
+    image: code-autopsy-demo:latest
+    container_name: code-autopsy-demo
+    ports:
+      - "7860:7860"
+    env_file:
+      - .env
+    environment:
+      API_URL: "http://api:8000"
+      GRADIO_PORT: "7860"
+      PYTHONUNBUFFERED: "1"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  hf_cache:
+    driver: local

@@ -1,0 +1,59 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Code Autopsy — .dockerignore
+# Keeps the Docker build context lean and fast.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Virtual environment (rebuild inside container)
+.venv/
+env/
+venv/
+
+# Raw & processed data (mount as volume at runtime instead)
+data/raw/
+data/processed/
+
+# Model weights & checkpoints (mount as volume at runtime)
+adapter/
+checkpoints/
+merged_model/
+*.safetensors
+*.pt
+*.pth
+*.gguf
+*.ggml
+*.bin
+
+# Experiment tracking
+wandb/
+mlruns/
+
+# Secrets
+.env
+*.env.local
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Docs (not needed in container)
+README.md
+document.md
+notebooks/

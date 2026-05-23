@@ -1,0 +1,58 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Code Autopsy — GitHub Actions CI
+# ══════════════════════════════════════════════════════════════════════════════
+# Two jobs run on every push and pull request:
+#   1. lint  — ruff check for code quality
+#   2. test  — pytest on zero-dependency unit tests
+#
+# Both complete in ~60s on GitHub's free ubuntu runners.
+# ══════════════════════════════════════════════════════════════════════════════
+
+name: CI
+
+on:
+  push:
+    branches: ["main", "master", "dev"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  # ── Job 1: Lint ─────────────────────────────────────────────────────────────
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ruff
+        run: pip install ruff==0.4.10
+
+      - name: Run ruff check
+        run: ruff check . --exclude .venv --exclude __pycache__
+
+  # ── Job 2: Unit Tests ────────────────────────────────────────────────────────
+  test:
+    name: Unit Tests (pytest)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pytest
+        run: pip install pytest==8.2.2
+
+      - name: Run unit tests
+        run: pytest tests/ -v --tb=short

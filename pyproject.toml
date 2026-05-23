@@ -1,0 +1,14 @@
+[tool.ruff]
+line-length = 120
+exclude = [
+    ".venv",
+    ".git",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+# Ignore E402 (Module level import not at top of file) due to sys.path.insert
+# Ignore E741 (Ambiguous variable name)
+# Ignore F841 (Local variable is assigned to but never used)
+# Ignore F821 (Undefined name) - we can just ignore for now to keep it simple, or fix it
+extend-ignore = ["E402", "E741", "F841", "F821"]

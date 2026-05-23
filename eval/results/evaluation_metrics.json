@@ -1,0 +1,24 @@
+{
+    "experiment_name": "Code-Autopsy QLoRA Fine-Tuning",
+    "timestamp": "2026-05-23T06:40:00+05:30",
+    "base_model": {
+        "name": "Qwen/Qwen2.5-Coder-7B-Instruct",
+        "quantization": "4-bit NF4",
+        "bleu_score": 10.63
+    },
+    "finetuned_model": {
+        "name": "Code-Autopsy Adapter",
+        "training_framework": "PEFT/trl",
+        "bleu_score": 70.03
+    },
+    "evaluation_metrics": {
+        "metric_used": "sacreBLEU",
+        "delta": 59.40,
+        "improvement_percentage": "558.7%"
+    },
+    "hardware_specs": {
+        "gpu": "RTX 5060 (8GB VRAM)",
+        "max_seq_length": 512,
+        "optimizer": "adamw_8bit"
+    }
+}
