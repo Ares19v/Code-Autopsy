@@ -3,7 +3,6 @@
 <img src="https://img.shields.io/badge/Model-Qwen2.5--Coder--7B-6366f1?style=for-the-badge&logo=huggingface&logoColor=white" />
 <img src="https://img.shields.io/badge/Method-QLoRA%20·%20NF4-8b5cf6?style=for-the-badge" />
 <img src="https://img.shields.io/badge/BLEU%20Improvement-558%25-10b981?style=for-the-badge" />
-<img src="https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge" />
 <img src="https://github.com/Ares19v/Code-Autopsy/actions/workflows/ci.yml/badge.svg" />
 
 # 🔬 Code Autopsy
@@ -296,5 +295,5 @@ Trained on an **HP Omen with RTX 5060** using 4-bit NF4 quantization via BitsAnd
 ---
 
 <div align="center">
-Made with ❤️ by <a href="https://huggingface.co/Ares19v">Ares19v</a>
+Devansh Tyagi @ 2026
 </div>
