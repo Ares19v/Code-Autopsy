@@ -140,37 +140,10 @@ def load_codesearchnet(
         console.log("[yellow]DRY RUN[/yellow] Skipping code_search_net download")
         return []
 
-    records = []
-    for lang in languages:
-        console.log(f"Loading [cyan]code-search-net/code_search_net[/cyan] ({lang})...")
-        try:
-            ds = load_dataset("code-search-net/code_search_net", lang, trust_remote_code=True)["train"]
-        except Exception as e:
-            console.log(f"[red]Failed {lang}: {e}[/red]")
-            continue
-
-        count = 0
-        for row in ds:
-            code = row.get("whole_func_string", "").strip()
-            doc = row.get("func_documentation_string", "").strip()
-            if not code or len(code) < 50 or is_duplicate(code):
-                continue
-
-            records.append({
-                "buggy_code": code,
-                "fixed_code": code,   # Same code — this is a style/review example
-                "language": lang,
-                "bug_identified": f"Code reviewed. {doc[:200] if doc else 'No issues found with the function logic.'}",
-                "root_cause": "No critical bug found. Function implements expected behavior.",
-                "source": "code_search_net",
-            })
-            count += 1
-            if count >= max_samples_per_lang:
-                break
-
-        console.log(f"[green]✓[/green] code_search_net/{lang}: {count:,} records")
-
-    return records
+    # Toxic dataset disabled to prevent lobotomizing the model
+    # with fake 'No critical bug found' labels.
+    console.log("[yellow]SKIPPING[/yellow] code_search_net (disabled due to bad labels)")
+    return []
 
 
 # ══════════════════════════════════════════════════════════════════════════════
