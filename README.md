@@ -297,3 +297,15 @@ Trained on an **HP Omen with RTX 5060** using 4-bit NF4 quantization via BitsAnd
 <div align="center">
 Devansh Tyagi @ 2026
 </div>
+
+
+## 🤗 Model on Hugging Face
+
+The trained model is available on Hugging Face: [devanshty/Code-Autopsy](https://huggingface.co/devanshty/Code-Autopsy)
+
+### Download
+
+```python
+from huggingface_hub import hf_hub_download
+model_path = hf_hub_download(repo_id='devanshty/Code-Autopsy', filename='adapter_model.safetensors')
+```
