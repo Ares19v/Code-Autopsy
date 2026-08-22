@@ -274,7 +274,9 @@ def main(args: argparse.Namespace) -> None:
     if not args.debug:
         adapter_path = ROOT / cfg["paths"]["adapter_output"]
         adapter_path.mkdir(parents=True, exist_ok=True)
-        trainer.model.save_pretrained(str(adapter_path))
+        # Use trainer.save_model instead of trainer.model.save_pretrained
+        # to ensure the adapter is saved in bfloat16, avoiding dtype mismatches in production
+        trainer.save_model(str(adapter_path))
         tokenizer.save_pretrained(str(adapter_path))
         console.log(f"[green]✓[/green] LoRA adapter saved to [cyan]{adapter_path}[/cyan]")
 

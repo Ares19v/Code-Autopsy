@@ -51,14 +51,14 @@ echo  [INFO]  Watch the API window for "Model ready."
 echo.
 timeout /t 10 /nobreak >nul
 
-:: ── Start Gradio demo in a new window ────────────────────────────────────────
-echo  [INFO]  Starting Gradio demo on port 7860...
-start "Code Autopsy — Demo" cmd /k ".venv\Scripts\python.exe demo\app.py"
+:: ── Start React frontend in a new window ────────────────────────────────────────
+echo  [INFO]  Starting React frontend on port 5173...
+start "Code Autopsy — Frontend" cmd /k "cd frontend && npm run dev"
 
 :: ── Wait a moment then open browser ─────────────────────────────────────────
 timeout /t 5 /nobreak >nul
 echo  [INFO]  Opening browser...
-start "" "http://localhost:7860"
+start "" "http://localhost:5173"
 
 :: ── Done ─────────────────────────────────────────────────────────────────────
 echo.

@@ -84,7 +84,7 @@ def load_model_once() -> None:
     )
 
     adapter_path = Path(ADAPTER_PATH)
-    if False and adapter_path.exists():
+    if adapter_path.exists():
         logger.info(f"Loading LoRA adapter from: {adapter_path}")
         _model = PeftModel.from_pretrained(_model, str(adapter_path))
     else:

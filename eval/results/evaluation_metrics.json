@@ -1,24 +1,39 @@
 {
-    "experiment_name": "Code-Autopsy QLoRA Fine-Tuning",
-    "timestamp": "2026-05-23T06:40:00+05:30",
-    "base_model": {
-        "name": "Qwen/Qwen2.5-Coder-7B-Instruct",
-        "quantization": "4-bit NF4",
-        "bleu_score": 10.63
-    },
-    "finetuned_model": {
-        "name": "Code-Autopsy Adapter",
-        "training_framework": "PEFT/trl",
-        "bleu_score": 70.03
-    },
-    "evaluation_metrics": {
-        "metric_used": "sacreBLEU",
-        "delta": 59.40,
-        "improvement_percentage": "558.7%"
-    },
-    "hardware_specs": {
-        "gpu": "RTX 5060 (8GB VRAM)",
-        "max_seq_length": 512,
-        "optimizer": "adamw_8bit"
-    }
+  "experiment_name": "Code-Autopsy QLoRA Bug-Fixing Fine-Tuning v2",
+  "timestamp": "2026-08-23T04:45:00+05:30",
+  "base_model": {
+    "name": "Qwen/Qwen2.5-Coder-7B-Instruct",
+    "quantization": "4-bit NF4",
+    "initial_train_loss": 2.162,
+    "initial_eval_loss": 1.397,
+    "initial_token_accuracy": "60.29%"
+  },
+  "finetuned_model": {
+    "name": "Code-Autopsy QLoRA Adapter v2",
+    "training_framework": "PEFT / TRL SFTTrainer",
+    "final_train_loss": 0.5211,
+    "final_eval_loss": 0.2442,
+    "final_token_accuracy": "93.20%",
+    "best_step_loss": 0.2472
+  },
+  "training_metrics": {
+    "epochs": 3,
+    "total_steps": 246,
+    "eval_loss_reduction": "-82.5%",
+    "accuracy_gain": "+32.91%",
+    "effective_batch_size": 8,
+    "learning_rate": 0.0002,
+    "lr_scheduler": "cosine"
+  },
+  "cloud_logging": {
+    "platform": "Weights & Biases",
+    "wandb_run_url": "https://wandb.ai/devanshtyagi1903-innothoughts/code-autopsy/runs/gc70q2q2",
+    "wandb_project_url": "https://wandb.ai/devanshtyagi1903-innothoughts/code-autopsy"
+  },
+  "hardware_specs": {
+    "gpu": "NVIDIA GeForce RTX 5060 (8GB VRAM)",
+    "quantization": "4-bit NF4 (bitsandbytes)",
+    "precision": "bfloat16",
+    "optimizer": "adamw_8bit"
+  }
 }

@@ -54,21 +54,17 @@ services:
       start_period: 120s
       retries: 3
 
-  # ── Gradio Demo UI ────────────────────────────────────────────────────────────
-  demo:
+  # ── React Frontend ───────────────────────────────────────────────────────────
+  frontend:
     build:
-      context: .
-      dockerfile: demo/Dockerfile
-    image: code-autopsy-demo:latest
-    container_name: code-autopsy-demo
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: code-autopsy-frontend:latest
+    container_name: code-autopsy-frontend
     ports:
-      - "7860:7860"
-    env_file:
-      - .env
+      - "5173:5173"
     environment:
-      API_URL: "http://api:8000"
-      GRADIO_PORT: "7860"
-      PYTHONUNBUFFERED: "1"
+      VITE_API_URL: "http://localhost:8000"
     depends_on:
       api:
         condition: service_healthy

@@ -23,13 +23,16 @@ build/
 # ── Data (large raw/processed files never committed) ──────────────────────────
 data/raw/
 data/processed/
+data/processed_v2/
 *.jsonl
 *.parquet
 *.arrow
 
 # ── Model weights & checkpoints ───────────────────────────────────────────────
 checkpoints/
+checkpoints_old/
 adapter/
+adapter_old/
 merged_model/
 *.gguf
 *.ggml
@@ -37,6 +40,10 @@ merged_model/
 *.pt
 *.pth
 *.bin
+
+# ── Frontend ──────────────────────────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
 
 # ── Experiment tracking ───────────────────────────────────────────────────────
 wandb/

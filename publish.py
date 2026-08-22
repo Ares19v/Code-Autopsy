@@ -35,7 +35,7 @@ from training.utils import load_config
 
 console = Console()
 
-HF_USER         = "Ares19v"
+HF_USER         = "devanshty"
 MERGED_REPO     = f"{HF_USER}/code-autopsy-7b"
 ADAPTER_REPO    = f"{HF_USER}/code-autopsy-lora"
 CFG_PATH        = ROOT / "training" / "config.yaml"
