@@ -1,10 +1,4 @@
 @echo off
-:: ════════════════════════════════════════════════════════════════════════════
-:: Code Autopsy — Run_Project.bat
-:: One-click launcher: starts the API server + Gradio demo, opens browser.
-:: Prerequisites: Run INSTALL.bat first.
-:: ════════════════════════════════════════════════════════════════════════════
-
 title Code Autopsy — Launcher
 color 0A
 echo.
@@ -17,15 +11,6 @@ echo  ║  Docs  → http://localhost:8000/docs      ║
 echo  ╚══════════════════════════════════════════╝
 echo.
 
-:: ── Check .venv ───────────────────────────────────────────────────────────────
-if not exist ".venv\Scripts\python.exe" (
-    echo  [ERROR] Virtual environment not found.
-    echo  [INFO]  Please run INSTALL.bat first.
-    echo.
-    pause
-    exit /b 1
-)
-
 :: ── Check .env ────────────────────────────────────────────────────────────────
 if not exist ".env" (
     echo  [WARN]  .env not found — copying from .env.example
@@ -37,19 +22,19 @@ if not exist ".env" (
 :: ── Check adapter ─────────────────────────────────────────────────────────────
 if not exist "adapter" (
     echo  [WARN]  No adapter found at .\adapter — running base model only.
-    echo  [INFO]  Train first with: .venv\Scripts\python.exe training\train.py
     echo.
 )
 
+set "PYTHON_CMD=python"
+if exist ".venv\Scripts\python.exe" set "PYTHON_CMD=.venv\Scripts\python.exe"
+
 :: ── Start FastAPI server in a new window ─────────────────────────────────────
 echo  [INFO]  Starting FastAPI server on port 8000...
-start "Code Autopsy — API" cmd /k ".venv\Scripts\python.exe -m uvicorn serve.api:app --host 0.0.0.0 --port 8000"
+start "Code Autopsy — API" cmd /k "%PYTHON_CMD% -m uvicorn serve.api:app --host 0.0.0.0 --port 8000"
 
-:: ── Wait for API to be ready (model loading takes ~60s) ──────────────────────
-echo  [INFO]  Waiting for API to be ready (model loading takes ~60s)...
-echo  [INFO]  Watch the API window for "Model ready."
-echo.
-timeout /t 10 /nobreak >nul
+:: ── Wait for API to be ready ─────────────────────────────────────────────────
+echo  [INFO]  Waiting for API to be ready...
+timeout /t 6 /nobreak >nul
 
 :: ── Start React frontend in a new window ────────────────────────────────────────
 echo  [INFO]  Starting React frontend on port 5173...
@@ -60,14 +45,9 @@ timeout /t 5 /nobreak >nul
 echo  [INFO]  Opening browser...
 start "" "http://localhost:5173"
 
-:: ── Done ─────────────────────────────────────────────────────────────────────
 echo.
 echo  ══════════════════════════════════════════
 echo  [DONE]  Both services are starting up.
-echo.
-echo  API will be ready when you see:
-echo    "Model ready." in the API window.
-echo.
 echo  Close both terminal windows to stop.
 echo  ══════════════════════════════════════════
 echo.
