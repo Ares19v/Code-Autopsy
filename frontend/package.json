@@ -27,5 +27,6 @@
     "tailwindcss": "^3.4.19",
     "typescript": "~6.0.2",
     "vite": "^8.2.0"
-  }
+  },
+  "description": "QLoRA fine-tuned code review model based on Qwen2.5-Coder-7B for AST analysis, bug diagnosis, and patch generation."
 }
