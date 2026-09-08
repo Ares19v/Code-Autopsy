@@ -19,6 +19,22 @@ Paste buggy code → get a structured analysis: **bug ID, root cause, and auto-f
 
 ---
 
+## 🖥️ Interactive Review Interface
+
+<p align="center">
+  <img src="assets/Code-Autopsy_1.png" alt="Code Autopsy Diagnostic Report Interface" width="100%" style="border-radius: 8px; border: 1px solid #30363d;" />
+  <br>
+  <em>Code Autopsy Diagnostic Report: Automated bug identification (mutable default argument), root cause breakdown, 92.3% confidence score, and optimized code generation.</em>
+</p>
+
+<p align="center">
+  <img src="assets/Code-Autopsy_2.png" alt="Code Autopsy Neural Inference State" width="100%" style="border-radius: 8px; border: 1px solid #30363d;" />
+  <br>
+  <em>Real-Time Inference State: Live neural diagnostics runner analyzing Python source code with animated status spinner.</em>
+</p>
+
+---
+
 ## Architecture
 
 ```mermaid
